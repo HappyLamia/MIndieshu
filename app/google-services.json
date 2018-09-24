@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "667652794569",
+    "firebase_url": "https://clinic-4f971.firebaseio.com",
+    "project_id": "clinic-4f971",
+    "storage_bucket": "clinic-4f971.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667652794569:android:3fbc2552b1c036d3",
+        "android_client_info": {
+          "package_name": "com.orion.darmawan.eclinic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "667652794569-vfkinkjcc7i8ajhe48dogcjsuudq3n6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYK7s4TYYLbEdgulAMF9JeI0_-Q6O3jCY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
