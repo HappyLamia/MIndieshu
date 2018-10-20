@@ -44,7 +44,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".ScanBarcodeActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".CheckoutActivity"></activity>
+        <activity android:name=".CheckoutActivity" />
+        <activity android:name=".MedicalRecordActivity"></activity>
     </application>
 
 </manifest>
