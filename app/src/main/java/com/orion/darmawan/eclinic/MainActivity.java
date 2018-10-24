@@ -211,6 +211,18 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_sync) {
             Intent intent = new Intent(getApplicationContext(), ScanBarcodeActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
+        } else if (id == R.id.nav_item_general) {
+            Intent intent = new Intent(getApplicationContext(), GeneralItemActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        } else if (id == R.id.nav_item_specified) {
+            Intent intent = new Intent(getApplicationContext(), SpecifiedItemActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        } else if (id == R.id.nav_payment_cart) {
+            Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        } else if (id == R.id.nav_payment_transaction) {
+            Intent intent = new Intent(getApplicationContext(), ScanBarcodeActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
         } else if (id == R.id.nav_medic_record) {
 
         } else if (id == R.id.nav_logout) {

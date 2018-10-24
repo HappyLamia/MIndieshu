@@ -48,7 +48,9 @@
         <activity android:name=".CartActivity" />
         <activity android:name=".PaymentMethodActivity" />
         <activity android:name=".GeneralItemActivity" />
-        <activity android:name=".SpecifiedItemActivity"></activity>
+        <activity android:name=".SpecifiedItemActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".Profile2Activity"></activity>
     </application>
 
 </manifest>
