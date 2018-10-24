@@ -44,7 +44,13 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".ScanBarcodeActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".CheckoutActivity"></activity>
+        <activity android:name=".CheckoutActivity" />
+        <activity android:name=".CartActivity" />
+        <activity android:name=".PaymentMethodActivity" />
+        <activity android:name=".GeneralItemActivity" />
+        <activity android:name=".SpecifiedItemActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".Profile2Activity"></activity>
     </application>
 
 </manifest>
