@@ -223,8 +223,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_payment_transaction) {
             Intent intent = new Intent(getApplicationContext(), ScanBarcodeActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
-        } else if (id == R.id.nav_medic_record) {
-
         } else if (id == R.id.nav_logout) {
             auth.signOut();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -242,8 +240,10 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(String response) {
                         try {
+
+                            JSONObject obj = new JSONObject(response);
                             //converting the string to json array object
-                            JSONArray array = new JSONArray(response);
+                            JSONArray array = obj.getJSONArray("barang");
 
                             //traversing through all the object
                             for (int i = 0; i < array.length(); i++) {

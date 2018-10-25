@@ -1,6 +1,7 @@
 package com.orion.darmawan.eclinic.Util;
 
 public class ServerApi {
-    public static final String URL_SYNCH = "https://indieshu.net/api/synch/user";
-    public static final String URL_PRODUCT = "https://indieshu.net/api/data/barang";
+    public static final String URL_PARENT = "https://demo.indieshu.net/";
+    public static final String URL_SYNCH = URL_PARENT+"api/synch/user";
+    public static final String URL_PRODUCT = URL_PARENT+"api/data/barang";
 }

@@ -13,27 +13,23 @@
             android:icon="@drawable/heart_outline"
             android:title="Daftar Favorit" />
         <item
-            android:id="@+id/nav_medic_record"
-            android:icon="@drawable/clipboard_text"
-            android:title="Rekam Medis" />
-        <item
             android:id="@+id/nav_item_general"
             android:icon="@drawable/clipboard_text"
             android:title="Produk" />
         <item
             android:id="@+id/nav_item_specified"
-            android:icon="@drawable/clipboard_text"
+            android:icon="@drawable/pot_mix"
             android:title="Produk Khusus" />
     </group>
 
     <item android:title="Payment Point">
         <menu>
             <item android:id="@+id/nav_payment_cart"
-                android:icon="@drawable/account_circle"
+                android:icon="@drawable/cart"
                 android:title="Cart"/>
 
             <item android:id="@+id/nav_payment_transaction"
-                android:icon="@drawable/account_circle"
+                android:icon="@drawable/credit_card"
                 android:title="Transaction"/>
         </menu>
     </item>
@@ -46,7 +42,7 @@
                 android:title="Profil" />
             <item
                 android:id="@+id/nav_about"
-                android:icon="@drawable/account_circle"
+                android:icon="@drawable/information"
                 android:title="About Apps" />
             <item
                 android:id="@+id/nav_logout"
