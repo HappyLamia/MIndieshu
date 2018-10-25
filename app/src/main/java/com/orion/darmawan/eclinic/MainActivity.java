@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), CartActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
         } else if (id == R.id.nav_payment_transaction) {
-            Intent intent = new Intent(getApplicationContext(), ScanBarcodeActivity.class);
+            Intent intent = new Intent(getApplicationContext(), PaymentMethodActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
         } else if (id == R.id.nav_logout) {
             auth.signOut();
