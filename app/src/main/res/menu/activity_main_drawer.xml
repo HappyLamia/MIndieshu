@@ -12,10 +12,6 @@
             android:id="@+id/nav_favourite"
             android:icon="@drawable/heart_outline"
             android:title="Daftar Favorit" />
-        <item
-            android:id="@+id/nav_medic_record"
-            android:icon="@drawable/clipboard_text"
-            android:title="Rekam Medis" />
     </group>
 
     <item android:title="Communicate">

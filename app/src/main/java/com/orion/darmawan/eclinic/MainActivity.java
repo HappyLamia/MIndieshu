@@ -211,8 +211,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_sync) {
             Intent intent = new Intent(getApplicationContext(), ScanBarcodeActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
-        } else if (id == R.id.nav_medic_record) {
-            startActivity(new Intent(MainActivity.this, MedicalRecordActivity.class));
         } else if (id == R.id.nav_logout) {
             auth.signOut();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
