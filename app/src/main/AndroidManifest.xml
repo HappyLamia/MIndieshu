@@ -50,7 +50,6 @@
         <activity android:name=".GeneralItemActivity" />
         <activity android:name=".SpecifiedItemActivity" />
         <activity android:name=".AboutActivity" />
-        <activity android:name=".Profile2Activity"></activity>
     </application>
 
 </manifest>

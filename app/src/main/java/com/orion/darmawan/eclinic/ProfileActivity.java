@@ -20,14 +20,14 @@ public class ProfileActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_profile);
         nama = (TextView) findViewById(R.id.nama_profile);
-        email = (TextView) findViewById(R.id.emails);
-        gender = (TextView) findViewById(R.id.gender);
-        phone = (TextView) findViewById(R.id.phone_number);
-        birthday = (TextView) findViewById(R.id.birthday);
+//        email = (TextView) findViewById(R.id.emails);
+//        gender = (TextView) findViewById(R.id.gender);
+//        phone = (TextView) findViewById(R.id.phone_number);
+//        birthday = (TextView) findViewById(R.id.birthday);
         ModelData userData = SharedPrefManager.getInstance(this).getUser();
         FirebaseUser user = auth.getCurrentUser();
         nama.setText(userData.getName());
-        email.setText(user.getEmail());
-        gender.setText(userData.getGender());
+//        email.setText(user.getEmail());
+//        gender.setText(userData.getGender());
     }
 }
