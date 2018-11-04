@@ -50,6 +50,7 @@
         <activity android:name=".GeneralItemActivity" />
         <activity android:name=".SpecifiedItemActivity" />
         <activity android:name=".AboutActivity" />
+        <activity android:name=".RekeningActivity"></activity>
     </application>
 
 </manifest>

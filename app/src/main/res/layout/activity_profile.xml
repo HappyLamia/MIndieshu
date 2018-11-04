@@ -108,7 +108,7 @@
                 android:clickable="true"
                 android:elevation="4dp"
                 android:padding="20dp"
-                android:text="Status Member :" />
+                android:text="Status Member : Silver" />
 
             <TextView
                 android:layout_width="fill_parent"
