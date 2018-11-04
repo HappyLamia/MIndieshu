@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity
 //            }
             nama.setText(email);
             result.setText(userData.getId());
-            Toast.makeText(getApplicationContext(),"Login Dengan User ID : "+uid, Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(),"Login Dengan User ID : "+uid, Toast.LENGTH_LONG).show();
         }
     }
 
