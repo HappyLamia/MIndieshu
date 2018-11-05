@@ -52,7 +52,7 @@ public class RekeningActivity extends Activity {
     }
 
     private void loadBankList() {
-        //creating a string request to send request to the url 
+        //creating a string request to send request to the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET,  ServerApi.URL_BANK,
                 new Response.Listener<String>() {
                     @Override
