@@ -1,4 +1,4 @@
-package com.orion.darmawan.eclinic;
+package com.orion.darmawan.eclinic.Adapter;
 
 public class Product {
 

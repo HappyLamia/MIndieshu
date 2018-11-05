@@ -1,7 +1,9 @@
 package com.orion.darmawan.eclinic;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,7 +15,7 @@ import com.orion.darmawan.eclinic.Util.SharedPrefManager;
 public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
-    private TextView nama,email,phone,gender,birthday;
+    private TextView nama,email,phone,gender,birthday,nav_rekening;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,5 +31,12 @@ public class ProfileActivity extends AppCompatActivity {
 //        nama.setText(userData.getName());
 //        email.setText(user.getEmail());
 //        gender.setText(userData.getGender());
+        nav_rekening = (TextView) findViewById(R.id.nav_rekening);
+        nav_rekening.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, RekeningActivity.class));
+            }
+        });
     }
 }
