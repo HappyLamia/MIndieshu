@@ -50,7 +50,8 @@
         <activity android:name=".GeneralItemActivity" />
         <activity android:name=".SpecifiedItemActivity" />
         <activity android:name=".AboutActivity" />
-        <activity android:name=".Profile2Activity"></activity>
+        <activity android:name=".Profile2Activity" />
+        <activity android:name=".ProductDetailActivity"></activity>
     </application>
 
 </manifest>
