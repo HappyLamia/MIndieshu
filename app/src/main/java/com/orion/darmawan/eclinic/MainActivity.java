@@ -119,37 +119,18 @@ public class MainActivity extends AppCompatActivity
         nama = header.findViewById(R.id.email_member);
         result = header.findViewById(R.id.id_pasien);
         ModelData userData = SharedPrefManager.getInstance(this).getUser();
-        ListView listView = (ListView)findViewById(R.id.listview);
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.addAll(Arrays.asList(getResources().getStringArray(R.array.array_country)));
-        adapter = new ArrayAdapter<String>(
-                MainActivity.this,
-                android.R.layout.simple_list_item_1,
-                arrayList);
-        listView.setAdapter(adapter);
-
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST);
 
         }
-
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
             String email = user.getEmail();
             String uid = user.getUid();
             boolean emailVerified = user.isEmailVerified();
-//            if (emailVerified){
-//                nama.setText(email);
-//                result.setText(userData.getId());
-//            }
-//            else{
-//                nama.setText(email);
-//                result.setText(userData.getId());
-//            }
             nama.setText(email);
             result.setText(userData.getId());
-//            Toast.makeText(getApplicationContext(),"Login Dengan User ID : "+uid, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -214,8 +195,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), GeneralItemActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
         } else if (id == R.id.nav_item_specified) {
-            Intent intent = new Intent(getApplicationContext(), SpecifiedItemActivity.class);
-            startActivityForResult(intent, REQUEST_CODE);
+            startActivity(new Intent(MainActivity.this, SpecifiedItemActivity.class));
         } else if (id == R.id.nav_payment_cart) {
             Intent intent = new Intent(getApplicationContext(), CartActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
