@@ -37,11 +37,12 @@ public class RekeningActivity extends Activity {
 
     //the hero list where we will store all the hero objects after parsing json
     List<Bank> bankList;
+    EditText inputSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_rekening);
 
         //initializing listview and hero list
         listView = (ListView) findViewById(R.id.listView);
@@ -49,6 +50,30 @@ public class RekeningActivity extends Activity {
 
         //this method will fetch and parse the data
         loadBankList();
+        inputSearch = (EditText) findViewById(R.id.inputSearch);
+        /**
+         * Enabling Search Filter
+         * */
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+//                RekeningActivity.this.adapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
     }
 
     private void loadBankList() {
@@ -60,7 +85,6 @@ public class RekeningActivity extends Activity {
                         try {
                             //getting the whole json object from the response
                             JSONObject obj = new JSONObject(response);
-
                             //we have the array named hero inside the object
                             //so here we are getting that json array
                             JSONArray bankArray = obj.getJSONArray("bank");
@@ -75,10 +99,9 @@ public class RekeningActivity extends Activity {
                                         bankObject.getString("code"),
                                         bankObject.getString("name"));
 
-                                //adding the hero to herolist
+                                //adding the bank to herolist
                                 bankList.add(bank);
                             }
-
                             //creating custom adapter object
                             BanksAdapter adapter = new BanksAdapter(bankList, getApplicationContext());
                             //adding the adapter to listview

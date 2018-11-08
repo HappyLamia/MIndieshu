@@ -55,7 +55,7 @@ public class SpecifiedItemActivity extends AppCompatActivity {
     }
     private void loadProducts(String val) {
         final String id_pasien = val;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,  ServerApi.URL_OBAT_DOKTER,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,  ServerApi.URL_OBAT_DOKTER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

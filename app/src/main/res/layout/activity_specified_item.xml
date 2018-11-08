@@ -6,4 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".SpecifiedItemActivity">
 
+    <include layout="@layout/product_list" />
+
 </android.support.constraint.ConstraintLayout>
