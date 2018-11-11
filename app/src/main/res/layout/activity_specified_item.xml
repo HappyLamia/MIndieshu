@@ -22,6 +22,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/product_list" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/product_list" />
 
 </android.support.constraint.ConstraintLayout>
