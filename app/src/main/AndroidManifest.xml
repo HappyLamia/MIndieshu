@@ -51,6 +51,8 @@
         <activity android:name=".SpecifiedItemActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".RekeningActivity" />
+        <activity android:name=".AtmActivity" />
+        <activity android:name=".TopUpActivity"></activity>
     </application>
 
 </manifest>

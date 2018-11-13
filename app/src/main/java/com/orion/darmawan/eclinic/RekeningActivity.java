@@ -75,7 +75,7 @@ public class RekeningActivity extends Activity {
          * akun user dan menambahkan ChildListener untuk menangani kejadian saat data ditambahkan,
          * diubah, dihapus dan dialihkan.
          */
-        getRefenence.child("Pasien").child(userData.getId()).addChildEventListener(new ChildEventListener() {
+        getRefenence.child("Rekening").child(userData.getId()).addChildEventListener(new ChildEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -108,103 +108,9 @@ public class RekeningActivity extends Activity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listBank();
+                startActivity(new Intent(RekeningActivity.this, AtmActivity.class));
+                finish();
             }
         });
-    }
-
-    private void listBank(){
-        setContentView(R.layout.activity_rekening);
-        //initializing listview and hero list
-        listView = (ListView) findViewById(R.id.listView);
-        bankList = new ArrayList<>();
-
-        //this method will fetch and parse the data
-        loadBankList();
-
-        inputSearch = (EditText) findViewById(R.id.inputSearch);
-        inputSearch.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                // When user changed the Text
-//                RekeningActivity.this.adapter.getFilter().filter(cs);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                          int arg3) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
-            }
-        });
-    }
-
-    private void add_rekening(){
-        setContentView(R.layout.form_rekening);
-        //initializing listview and hero list
-    }
-
-    private void loadBankList() {
-        //creating a string request to send request to the url
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,  ServerApi.URL_BANK,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            //getting the whole json object from the response
-                            JSONObject obj = new JSONObject(response);
-                            //we have the array named hero inside the object
-                            //so here we are getting that json array
-                            JSONArray bankArray = obj.getJSONArray("bank");
-
-                            //now looping through all the elements of the json array
-                            for (int i = 0; i < bankArray.length(); i++) {
-                                //getting the json object of the particular index inside the array
-                                JSONObject bankObject = bankArray.getJSONObject(i);
-
-                                //creating a hero object and giving them the values from json object
-                                Bank bank = new Bank(
-                                        bankObject.getString("code"),
-                                        bankObject.getString("name"));
-
-                                //adding the bank to herolist
-                                bankList.add(bank);
-                            }
-                            //creating custom adapter object
-                            BanksAdapter adapter = new BanksAdapter(bankList, getApplicationContext());
-                            //adding the adapter to listview
-                            listView.setAdapter(adapter);
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                                    Toast.makeText(getApplicationContext(),"",Toast.LENGTH_SHORT).show();
-                                    add_rekening();
-                                }
-                            });
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //displaying the error in toast if occurrs
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        //creating a request queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        //adding the string request to request queue
-        requestQueue.add(stringRequest);
     }
 }
