@@ -36,12 +36,12 @@ public class SignupActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         fruser = auth.getCurrentUser();
 
-        btnSignIn = (Button) findViewById(R.id.back_button);
-        btnSignUp = (Button) findViewById(R.id.signup_button);
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
-        confirmPassword = (EditText) findViewById(R.id.confirm_password);
-        progressBar = (ProgressBar) findViewById(R.id.login_progress);
+        btnSignIn = findViewById(R.id.back_button);
+        btnSignUp = findViewById(R.id.signup_button);
+        inputEmail = findViewById(R.id.email);
+        inputPassword = findViewById(R.id.password);
+        confirmPassword = findViewById(R.id.confirm_password);
+        progressBar = findViewById(R.id.login_progress);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
