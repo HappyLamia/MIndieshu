@@ -20,12 +20,14 @@ public class ServerApi {
         // PARAM (id_member)
     public static final String URL_CHECKOUT = URL_PARENT+"api/cart/checkout";
         // PARAM (id_member)
-
         // END CART
+    public static final String URL_TOP_UP = URL_PARENT+"api/coin/top-up";
+        // PARAM (id_member,saldo,harga)
 
     // METHOD GET NO PARAM
     public static final String URL_PRODUCT = URL_PARENT+"api/data/barang";
     public static final String URL_BANK = URL_PARENT+"api/data/bank";
+    public static final String URL_COIN = URL_PARENT+"api/data/coin";
 
     // METHOD GET WITH PARAM
     public static final String URL_DETAIL_PRODUCT = URL_PARENT+"api/data/get-detail-barang";

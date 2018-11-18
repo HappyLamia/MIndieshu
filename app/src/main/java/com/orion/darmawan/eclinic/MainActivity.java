@@ -25,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity
     private ProductsAdapter productadapter;
     private List<Product> productList;
     private TextView result,nama;
+    private Button refresh;
     private FirebaseAuth auth;
     public static final int REQUEST_CODE = 100;
     public static final int PERMISSION_REQUEST = 200;
@@ -130,8 +132,24 @@ public class MainActivity extends AppCompatActivity
             String uid = user.getUid();
             boolean emailVerified = user.isEmailVerified();
             nama.setText(email);
-            result.setText(userData.getId());
+            result.setText("ID Member : -");
+            if (emailVerified==false){
+                warningPage();
+            }
         }
+    }
+
+    public void warningPage(){
+        setContentView(R.layout.warning);
+        refresh = (Button)findViewById(R.id.refresh_btn);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override

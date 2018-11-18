@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,28 +19,33 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.orion.darmawan.eclinic.Model.User;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText inputEmail, inputPassword,confirmPassword;
+    private EditText inputEmail, inputPassword,confirmPassword,inputNama;
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
-    private FirebaseUser fruser;
+    private FirebaseDatabase getDatabase;
+    private DatabaseReference getRefenence,noRef;
+    public String jenis_kelamin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-        fruser = auth.getCurrentUser();
-
         btnSignIn = (Button) findViewById(R.id.back_button);
         btnSignUp = (Button) findViewById(R.id.signup_button);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
+        inputNama = (EditText) findViewById(R.id.nama_member);
         confirmPassword = (EditText) findViewById(R.id.confirm_password);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
 
@@ -57,7 +63,7 @@ public class SignupActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 String con_password = confirmPassword.getText().toString().trim();
-
+                String nama = inputNama.getText().toString();
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Email Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
                     return;
@@ -73,6 +79,11 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (TextUtils.isEmpty(nama)) {
+                    Toast.makeText(getApplicationContext(), "Nama Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password terlalu pendek!. Minimal 6 karakter", Toast.LENGTH_SHORT).show();
                     return;
@@ -80,36 +91,71 @@ public class SignupActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
                 //create user
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(Task<AuthResult> task) {
-                            Toast.makeText(SignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                fruser.sendEmailVerification()
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(SignupActivity.this,"Email Verifikasi Telah Dikirim, Silahkan Cek Email Anda",Toast.LENGTH_SHORT).show();
-                                                }
-                                            }
-                                        });
-                                startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                                finish();
-                            }
-                        }
-                    });
-
+                createUser(email,password);
             }
         });
+    }
+
+    private void writeNewUsers(String id,String nama,String jk) {
+        getDatabase = FirebaseDatabase.getInstance();
+        getRefenence = getDatabase.getReference();
+        User user = new User(nama,jk);
+        getRefenence.child("User").child(id).setValue(user);
+    }
+
+    private void createUser(String email,String password){
+        final String nama = inputNama.getText().toString().trim();
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        FirebaseUser userData = auth.getCurrentUser();
+                        writeNewUsers(userData.getUid(),nama,jenis_kelamin);
+                        sendEmailVerification();
+                        startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(SignupActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+    }
+
+    private void sendEmailVerification() {
+        final FirebaseUser userData = auth.getCurrentUser();
+        userData.sendEmailVerification()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // [START_EXCLUDE]
+                        if (task.isSuccessful()) {
+                            Toast.makeText(SignupActivity.this,
+                                    "Verification email sent to " + userData.getEmail(),
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(SignupActivity.this,
+                                    "Failed to send verification email.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+        switch(view.getId()) {
+            case R.id.laki:
+                if (checked)
+                    jenis_kelamin = "Laki-laki";
+                    break;
+            case R.id.perempuan:
+                if (checked)
+                    jenis_kelamin = "Perempuan";
+                    break;
+        }
     }
 
     @Override
