@@ -31,7 +31,7 @@ public class ServerApi {
     public static final String URL_DETAIL_PRODUCT = URL_PARENT+"api/data/get-detail-barang";
         // PARAM (id_barang)
         // CART
-    public static final String URL_GET_CART = URL_PARENT+"api/data/get-cart";
+    public static final String URL_GET_CART = URL_PARENT+"api/cart/get-cart";
         // PARAM (id_member)
         // END CART
 }
