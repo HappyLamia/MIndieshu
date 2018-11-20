@@ -16,7 +16,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private TextView nama,email,phone,gender,birthday;
-    private TextView nav_rekening,nav_topup;
+    private TextView nav_rekening,nav_topup,nav_account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
 //        gender.setText(userData.getGender());
         nav_rekening = (TextView) findViewById(R.id.nav_rekening);
         nav_topup = (TextView) findViewById(R.id.nav_topup);
+        nav_account = (TextView) findViewById(R.id.nav_account);
 
         nav_rekening.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +46,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this, TopUpActivity.class));
+            }
+        });
+        nav_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
             }
         });
     }

@@ -25,12 +25,12 @@ import com.orion.darmawan.eclinic.Model.User;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText inputEmail, inputPassword,confirmPassword,inputNama;
-    private Button btnSignIn, btnSignUp, btnResetPassword;
+    private EditText inputEmail, inputPassword,confirmPassword,inputNama,inputTgl,inputHp;
+    private Button btnSignIn, btnSignUp;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private FirebaseDatabase getDatabase;
-    private DatabaseReference getRefenence,noRef;
+    private DatabaseReference getRefenence;
     public String jenis_kelamin;
 
     @Override
@@ -41,11 +41,14 @@ public class SignupActivity extends AppCompatActivity {
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+
         btnSignIn = (Button) findViewById(R.id.back_button);
         btnSignUp = (Button) findViewById(R.id.signup_button);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         inputNama = (EditText) findViewById(R.id.nama_member);
+        inputTgl = (EditText) findViewById(R.id.tgl_lhr);
+        inputHp = (EditText) findViewById(R.id.no_hp);
         confirmPassword = (EditText) findViewById(R.id.confirm_password);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
 
@@ -64,6 +67,8 @@ public class SignupActivity extends AppCompatActivity {
                 String password = inputPassword.getText().toString().trim();
                 String con_password = confirmPassword.getText().toString().trim();
                 String nama = inputNama.getText().toString();
+                String tgl_lahir = inputTgl.getText().toString();
+                String no_hp = inputHp.getText().toString();
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Email Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
                     return;
@@ -84,6 +89,16 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (TextUtils.isEmpty(tgl_lahir)) {
+                    Toast.makeText(getApplicationContext(), "Tanggal Lahir Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(no_hp)) {
+                    Toast.makeText(getApplicationContext(), "No HP Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password terlalu pendek!. Minimal 6 karakter", Toast.LENGTH_SHORT).show();
                     return;
@@ -96,22 +111,24 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    private void writeNewUsers(String id,String nama,String jk) {
+    private void writeNewUsers(String id,String nama,String jk,String tgl_lahir,String no_hp) {
         getDatabase = FirebaseDatabase.getInstance();
         getRefenence = getDatabase.getReference();
-        User user = new User(nama,jk);
+        User user = new User(nama,jk,tgl_lahir,no_hp);
         getRefenence.child("User").child(id).setValue(user);
     }
 
     private void createUser(String email,String password){
         final String nama = inputNama.getText().toString().trim();
+        final String tgl_lahir = inputTgl.getText().toString().trim();
+        final String no_hp = inputHp.getText().toString().trim();
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         FirebaseUser userData = auth.getCurrentUser();
-                        writeNewUsers(userData.getUid(),nama,jenis_kelamin);
+                        writeNewUsers(userData.getUid(),nama,jenis_kelamin,tgl_lahir,no_hp);
                         sendEmailVerification();
                         startActivity(new Intent(SignupActivity.this, MainActivity.class));
                         finish();

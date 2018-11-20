@@ -52,7 +52,8 @@
         <activity android:name=".AboutActivity" />
         <activity android:name=".RekeningActivity" />
         <activity android:name=".AtmActivity" />
-        <activity android:name=".TopUpActivity"></activity>
+        <activity android:name=".TopUpActivity" />
+        <activity android:name=".EditProfileActivity"></activity>
     </application>
 
 </manifest>
