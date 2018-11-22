@@ -1,6 +1,7 @@
 package com.orion.darmawan.eclinic.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,9 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orion.darmawan.eclinic.ProductDetailActivity;
 import com.orion.darmawan.eclinic.R;
 
 import java.util.List;
@@ -27,13 +30,15 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title,price;
         public ImageView thumbnail, overflow;
+        public LinearLayout parentLayout;
 
-        public MyViewHolder(View view) {
-            super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
-            price = (TextView) view.findViewById(R.id.count);
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            title = itemView.findViewById(R.id.title);
+            thumbnail = itemView.findViewById(R.id.thumbnail);
+            //overflow = itemView.findViewById(R.id.overflow);
+            price = itemView.findViewById(R.id.count);
+            parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
 
@@ -47,20 +52,32 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.product_card, parent, false);
-
+        MyViewHolder holder = new MyViewHolder(itemView);
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Product product = ProductList.get(position);
+        final Product product = ProductList.get(position);
 
         holder.title.setText(product.getNama());
         holder.price.setText(String.valueOf(product.getHarga()));
-        holder.overflow.setOnClickListener(new View.OnClickListener() {
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupMenu(holder.overflow);
+//                showPopupMenu(holder.overflow);
+                Intent i = new Intent(mContext,ProductDetailActivity.class);
+                i.putExtra("ProductID",product.getId());
+                mContext.startActivity(i);
+            }
+        });
+
+        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext,ProductDetailActivity.class);
+                i.putExtra("ProductID",product.getId());
+                mContext.startActivity(i);
             }
         });
     }

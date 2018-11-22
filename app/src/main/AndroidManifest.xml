@@ -54,6 +54,7 @@
         <activity android:name=".AtmActivity" />
         <activity android:name=".TopUpActivity" />
         <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".ProductDetailActivity"></activity>
     </application>
 
 </manifest>

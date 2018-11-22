@@ -36,6 +36,13 @@ public class SharedPrefManager  {
         editor.apply();
     }
 
+    public void userLogout(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+
 
     //this method will give the logged in user
     public ModelData getUser() {

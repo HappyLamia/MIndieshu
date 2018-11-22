@@ -132,7 +132,12 @@ public class MainActivity extends AppCompatActivity
             String uid = user.getUid();
             boolean emailVerified = user.isEmailVerified();
             nama.setText(email);
-            result.setText("ID Member : -");
+            if (userData.getId()==null){
+                result.setText("ID Member : -");
+            }
+            else{
+                result.setText("ID Member : "+userData.getId());
+            }
             if (emailVerified==false){
                 warningPage();
             }
@@ -222,6 +227,7 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(intent, REQUEST_CODE);
         } else if (id == R.id.nav_logout) {
             auth.signOut();
+            SharedPrefManager.getInstance(getApplicationContext()).userLogout();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
 
