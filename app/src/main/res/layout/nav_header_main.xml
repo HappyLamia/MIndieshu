@@ -52,6 +52,7 @@ android:orientation="horizontal" >
                 android:textSize="8sp" />
 
             <TextView
+                android:id="@+id/indie_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
@@ -85,6 +86,7 @@ android:orientation="horizontal" >
                 android:textSize="8sp" />
 
             <TextView
+                android:id="@+id/cashback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"

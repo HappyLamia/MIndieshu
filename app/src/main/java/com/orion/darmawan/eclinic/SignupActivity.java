@@ -1,14 +1,15 @@
 package com.orion.darmawan.eclinic;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.support.annotation.NonNull;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -23,8 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orion.darmawan.eclinic.Model.User;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class SignupActivity extends AppCompatActivity {
 
+    private DatePickerDialog datePickerDialog;
+    private SimpleDateFormat dateFormatter;
     private EditText inputEmail, inputPassword,confirmPassword,inputNama,inputTgl,inputHp;
     private Button btnSignIn, btnSignUp;
     private ProgressBar progressBar;
@@ -38,7 +45,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
@@ -51,6 +58,13 @@ public class SignupActivity extends AppCompatActivity {
         inputHp = (EditText) findViewById(R.id.no_hp);
         confirmPassword = (EditText) findViewById(R.id.confirm_password);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
+
+        inputTgl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDateDialog();
+            }
+        });
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,10 +125,34 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+    private void showDateDialog(){
+
+        Calendar newCalendar = Calendar.getInstance();
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                inputTgl.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
+    public String getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd ");
+        String strDate = mdformat.format(calendar.getTime());
+        return strDate;
+    }
+
     private void writeNewUsers(String id,String nama,String jk,String tgl_lahir,String no_hp) {
         getDatabase = FirebaseDatabase.getInstance();
         getRefenence = getDatabase.getReference();
-        User user = new User(nama,jk,tgl_lahir,no_hp);
+        String created_date = getCurrentDate();
+        User user = new User(nama,jk,tgl_lahir,no_hp,created_date);
         getRefenence.child("User").child(id).setValue(user);
     }
 
