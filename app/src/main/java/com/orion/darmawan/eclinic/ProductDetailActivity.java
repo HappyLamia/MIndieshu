@@ -46,6 +46,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
+        auth = FirebaseAuth.getInstance();
+
         queue =  Volley.newRequestQueue(this);
 
         tvProductName = findViewById(R.id.tvNamaDetailProd);
@@ -94,7 +96,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             if (obj.getDouble("total_qty")<= 10){
                                 tvAvailQtyProduct.setText("Stok hampir habis tersisa < "+obj.getDouble("total_qty"));
                             }else {
-                                tvAvailQtyProduct.setText("Stok tersedia tersisa < "+obj.getDouble("total_qty"));
+                                tvAvailQtyProduct.setText("Stok tersedia tersisa "+obj.getDouble("total_qty"));
                             }
                             progressBar.setVisibility(View.GONE);
 

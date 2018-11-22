@@ -33,6 +33,8 @@ public class CartActivity extends AppCompatActivity {
 
         cartList = new ArrayList<>();
         cartAdapter = new CartAdapter(this, cartList);
+
+        loadCart();
     }
 
     private void loadCart() {
