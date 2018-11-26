@@ -32,7 +32,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     RequestQueue queue;
     TextView tvProductName,tvProductPrice, tvDetailProduct, tvAvailQtyProduct;
     ProgressBar progressBar;
-    String vID_Barang = "";
+    String vID_Barang = "",vMsg = "";
+    int vStatus = 0;
 
     ModelData userData;
     FirebaseUser user;
@@ -128,8 +129,13 @@ public class ProductDetailActivity extends AppCompatActivity {
                         //Toast.makeText(getBaseContext(), response, Toast.LENGTH_LONG).show();
                         try {
                             JSONObject obj = new JSONObject( response);
-
-                            Toast.makeText(ProductDetailActivity.this,tvProductName.getText().toString()+" Added to Cart",Toast.LENGTH_LONG).show();
+                            vStatus = obj.getInt("status");
+                            vMsg = obj.getString("message");
+                            if (vStatus==1){
+                                Toast toast = Toast.makeText(getApplicationContext(), vMsg, Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+//                            Toast.makeText(ProductDetailActivity.this,tvProductName.getText().toString()+" Added to Cart",Toast.LENGTH_LONG).show();
 
                         }catch (JSONException e){
                             e.printStackTrace();
