@@ -50,12 +50,15 @@
         <activity android:name=".GeneralItemActivity" />
         <activity android:name=".SpecifiedItemActivity" />
         <activity android:name=".AboutActivity" />
+<<<<<<< HEAD
         <activity android:name=".RekeningActivity" />
         <activity android:name=".AtmActivity" />
         <activity android:name=".TopUpActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".ProductDetailActivity" />
-        <activity android:name=".VoucherActivity"></activity>
+        <activity android:name=".EditProfileActivity"></activity>
+=======
+        <activity android:name=".Profile2Activity" />
+>>>>>>> origin/bayu-branch
+        <activity android:name=".ProductDetailActivity"></activity>
     </application>
 
 </manifest>
