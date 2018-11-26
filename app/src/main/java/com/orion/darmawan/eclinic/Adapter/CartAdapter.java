@@ -40,7 +40,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             QtyBeli = itemView.findViewById(R.id.tvCart_QtyBeli);
             QtySisa = itemView.findViewById(R.id.tvCartCard_SisaQty);
             thumbnail = itemView.findViewById(R.id.imgCart_ImgProduct);
-            //overflow = itemView.findViewById(R.id.overflow);
             parentLayout = itemView.findViewById(R.id.parent_layout_cart);
         }
     }
