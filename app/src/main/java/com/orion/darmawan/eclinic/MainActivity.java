@@ -5,16 +5,19 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private ProductsAdapter productadapter;
     private List<Product> productList;
-    private TextView result,nama;
+    private TextView result,nama,voucher;
     private Button refresh;
     private FirebaseAuth auth;
     public static final int REQUEST_CODE = 100;
@@ -120,6 +123,10 @@ public class MainActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         nama = header.findViewById(R.id.email_member);
         result = header.findViewById(R.id.id_pasien);
+
+        voucher = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+                findItem(R.id.nav_voucher));
+        initializeCountDrawer();
         ModelData userData = SharedPrefManager.getInstance(this).getUser();
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
@@ -142,6 +149,14 @@ public class MainActivity extends AppCompatActivity
                 warningPage();
             }
         }
+    }
+
+    private void initializeCountDrawer(){
+        //Gravity property aligns the text
+        voucher.setGravity(Gravity.CENTER_VERTICAL);
+        voucher.setTypeface(null, Typeface.BOLD);
+        voucher.setTextColor(getResources().getColor(R.color.red_price));
+        voucher.setText("99+");
     }
 
     public void warningPage(){
@@ -224,6 +239,9 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(intent, REQUEST_CODE);
         } else if (id == R.id.nav_payment_transaction) {
             Intent intent = new Intent(getApplicationContext(), PaymentMethodActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        } else if (id == R.id.nav_voucher) {
+            Intent intent = new Intent(getApplicationContext(), VoucherActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
         } else if (id == R.id.nav_logout) {
             auth.signOut();

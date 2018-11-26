@@ -7,6 +7,7 @@ public class ServerApi {
     // METHOD POST
     public static final String URL_SYNCH = URL_PARENT+"api/synch/user";
     public static final String URL_OBAT_DOKTER = URL_PARENT+"api/data/wishlist";
+    public static final String URL_VOUCHER = URL_PARENT+"api/data/voucher";
         // CART
     public static final String URL_CART = URL_PARENT+"api/cart/add-cart";
         // PARAM (id_member,id_barang,qty,harga)
