@@ -39,7 +39,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
     public VoucherViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //inflating and returning our view holder
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.layout_voucher, null);
+        View view = inflater.inflate(R.layout.layout_voucher,  null);
         return new VoucherViewHolder(view);
     }
 
@@ -49,6 +49,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
         final Voucher voucher = voucherList.get(position);
 
         final String idvoucher = voucher.getIdvoucher();
+        final String status = voucher.getStatus();
         //binding the data with the viewholder views
         holder.textViewQty.setText("Qty : "+String.valueOf(voucher.getQty()));
         holder.textViewId.setText("ID : "+voucher.getIdvoucher());
@@ -56,23 +57,21 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
         holder.textViewTitle.setText(voucher.getNamavoucher());
         holder.textViewValue.setText(String.valueOf(voucher.getNilai()));
         holder.textViewExpDate.setText(voucher.getExpdate());
-        holder.btn_claim.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mCtx instanceof VoucherActivity){
-                    ((VoucherActivity)mCtx).claimVoucher(idvoucher);
+        if (status.equals("Claim")){
+            holder.btn_claim.setText("Claim");
+            holder.btn_claim.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mCtx instanceof VoucherActivity){
+                        ((VoucherActivity)mCtx).claimVoucher(idvoucher);
+                    }
                 }
-            }
-        });
-//        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                showPopupMenu(holder.overflow);
-//                Intent i = new Intent(mCtx,VoucherActivity.class);
-//                i.putExtra("VoucherID",voucher.getIdvoucher());
-//                mCtx.startActivity(i);
-//            }
-//        });
+            });
+        }else{
+            holder.btn_claim.setText("Claimed");
+            holder.btn_claim.setBackgroundColor(holder.btn_claim.getContext().getResources().getColor(R.color.grey_light));
+        }
+
     }
 
 

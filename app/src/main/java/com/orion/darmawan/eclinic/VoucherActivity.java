@@ -98,7 +98,8 @@ public class VoucherActivity extends AppCompatActivity {
                                         voucher.getString("type"),
                                         voucher.getInt("nilai"),
                                         voucher.getInt("qty"),
-                                        voucher.getString("exp_date")
+                                        voucher.getString("exp_date"),
+                                        voucher.getString("status")
                                 ));
                             }
 

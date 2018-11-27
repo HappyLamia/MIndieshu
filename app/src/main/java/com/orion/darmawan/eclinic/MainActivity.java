@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity
         voucher.setGravity(Gravity.CENTER_VERTICAL);
         voucher.setTypeface(null, Typeface.BOLD);
         voucher.setTextColor(getResources().getColor(R.color.red_price));
-        voucher.setText("99+");
+        voucher.setText("3");
     }
 
     public void warningPage(){

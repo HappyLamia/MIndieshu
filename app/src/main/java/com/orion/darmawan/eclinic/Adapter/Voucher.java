@@ -7,18 +7,20 @@ public class Voucher {
     int nilai;
     int qty;
     String expdate;
+    String status;
 
     public Voucher() {
 
     }
 
-    public Voucher(String idvoucher, String namavoucher, String type, int nilai, int qty, String expdate) {
+    public Voucher(String idvoucher, String namavoucher, String type, int nilai, int qty, String expdate,String status) {
         this.idvoucher = idvoucher;
         this.namavoucher = namavoucher;
         this.type = type;
         this.nilai = nilai;
         this.qty = qty;
         this.expdate = expdate;
+        this.status = status;
     }
 
     public String getIdvoucher() {
@@ -67,5 +69,13 @@ public class Voucher {
 
     public void setExpdate(String expdate) {
         this.expdate = expdate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
