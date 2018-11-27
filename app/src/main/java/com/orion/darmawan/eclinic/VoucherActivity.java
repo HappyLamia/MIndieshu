@@ -131,6 +131,13 @@ public class VoucherActivity extends AppCompatActivity {
 
     public void claimVoucher(final String val) {
         final ModelData userData = SharedPrefManager.getInstance(this).getUser();
+        final String id_pasien;
+        if (userData.getId()==null){
+            id_pasien = "";
+        }
+        else{
+            id_pasien = userData.getId();
+        }
         auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
 
@@ -165,7 +172,7 @@ public class VoucherActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id_pasien", userData.getId());
+                params.put("id_pasien", id_pasien);
                 params.put("id_member", user.getUid());
                 params.put("id_voucher",val);
                 return params;
