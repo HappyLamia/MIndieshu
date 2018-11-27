@@ -8,6 +8,7 @@ public class ServerApi {
     public static final String URL_SYNCH = URL_PARENT+"api/synch/user";
     public static final String URL_OBAT_DOKTER = URL_PARENT+"api/data/wishlist";
     public static final String URL_VOUCHER = URL_PARENT+"api/data/voucher";
+    public static final String URL_CLAIM_VOUCHER = URL_PARENT+"api/voucher/claim";
         // CART
     public static final String URL_CART = URL_PARENT+"api/cart/add-cart";
         // PARAM (id_member,id_barang,qty,harga)
