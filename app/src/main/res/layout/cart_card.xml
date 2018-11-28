@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent_layout_cart"
     android:orientation="vertical"
-    android:background="@color/album_title"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
     <android.support.v7.widget.CardView
@@ -132,6 +131,14 @@
 
                     </LinearLayout>
 
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="190dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_action_cart_item_delete"/>
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -140,4 +147,4 @@
 
     </android.support.v7.widget.CardView>
 
-</RelativeLayout>
+</LinearLayout>

@@ -27,9 +27,14 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".SignupActivity" />
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SignupActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"
@@ -41,21 +46,50 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".ScanBarcodeActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".CheckoutActivity" />
-        <activity android:name=".CartActivity" />
-        <activity android:name=".PaymentMethodActivity" />
-        <activity android:name=".GeneralItemActivity" />
-        <activity android:name=".SpecifiedItemActivity" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".RekeningActivity" />
-        <activity android:name=".AtmActivity" />
-        <activity android:name=".TopUpActivity" />
-        <activity android:name=".EditProfileActivity"></activity>
-        <activity android:name=".ProductDetailActivity"></activity>
-        <activity android:name=".VoucherActivity"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ScanBarcodeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CheckoutActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CartActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PaymentMethodActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GeneralItemActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SpecifiedItemActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AboutActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".RekeningActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AtmActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TopUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".EditProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ProductDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".VoucherActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package com.orion.darmawan.eclinic;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 
@@ -28,7 +29,7 @@ import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
 
-    private List<Cart> cartList;
+    private List<Cart> cartList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
     private FirebaseAuth auth;
@@ -44,9 +45,11 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view_cart);
 
-        cartList = new ArrayList<>();
         cartAdapter = new CartAdapter(this, cartList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(cartAdapter);
+
         loadCart();
     }
 

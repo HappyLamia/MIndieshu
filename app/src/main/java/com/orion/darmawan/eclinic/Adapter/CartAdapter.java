@@ -22,11 +22,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private Context mContext;
     private List<Cart> CartList;
 
-    public CartAdapter(Context mContext, List<Cart> CartList) {
-        this.mContext = mContext;
-        this.CartList = CartList;
-    }
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView Harga, QtyBeli, QtySisa;
         public CheckBox NamaProduct;
@@ -42,6 +37,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             thumbnail = itemView.findViewById(R.id.imgCart_ImgProduct);
             parentLayout = itemView.findViewById(R.id.parent_layout_cart);
         }
+    }
+
+    public CartAdapter(Context mContext, List<Cart> CartList) {
+        this.mContext = mContext;
+        this.CartList = CartList;
     }
 
     @Override
