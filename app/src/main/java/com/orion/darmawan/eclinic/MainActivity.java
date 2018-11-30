@@ -51,8 +51,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.orion.darmawan.eclinic.Adapter.Product;
 import com.orion.darmawan.eclinic.Adapter.ProductsAdapter;
 import com.orion.darmawan.eclinic.Model.Affiliasi;
@@ -127,6 +130,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
+        Glide.with(this).load(R.drawable.bg).into((ImageView) header.findViewById(R.id.header_cover_image));
         nama = header.findViewById(R.id.email_member);
         result = header.findViewById(R.id.id_pasien);
 
@@ -330,8 +334,6 @@ public class MainActivity extends AppCompatActivity
                                         userJson.getString("nama_pasien"),
                                         userJson.getString("jk")
                                 );
-
-                                createAffiliation(userData.getUid(),userJson.getString("id_pasien"));
                                 //storing the user in shared preferences
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
 
@@ -361,11 +363,6 @@ public class MainActivity extends AppCompatActivity
         };
 
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
-    }
-
-    private void createAffiliation(final String id_member,final String id){
-        Affiliasi af = new Affiliasi(id,"Member");
-        getRefenence.child("Affiliasi").child(id_member).setValue(af);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

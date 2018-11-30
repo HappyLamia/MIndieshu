@@ -13,8 +13,7 @@ android:orientation="horizontal" >
         android:id="@+id/header_cover_image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_color" />
+        android:scaleType="centerCrop" />
 
     <ImageButton
         android:id="@+id/user_profile_photo"

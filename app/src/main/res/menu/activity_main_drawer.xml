@@ -47,6 +47,10 @@
                 android:icon="@drawable/account_circle"
                 android:title="Profil" />
             <item
+                android:id="@+id/nav_chat"
+                android:icon="@drawable/chat"
+                android:title="Ask Admin" />
+            <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/information"
                 android:title="About Apps" />
