@@ -83,6 +83,7 @@
                     android:layout_centerHorizontal="true"
                     android:textStyle="bold"
                     android:textColor="@color/viewBg"
+                    android:onClick="btDetailBuyNow_Click"
                     android:text="Buy Now"/>
 
             </RelativeLayout>

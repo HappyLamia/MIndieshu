@@ -1,5 +1,6 @@
 package com.orion.darmawan.eclinic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -134,6 +135,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                             if (vStatus==1){
                                 Toast toast = Toast.makeText(getApplicationContext(), vMsg, Toast.LENGTH_SHORT);
                                 toast.show();
+                                Intent i = new Intent(getApplicationContext(), CartActivity.class);
+                                startActivity(i);
+                                finish();
                             }
 //                            Toast.makeText(ProductDetailActivity.this,tvProductName.getText().toString()+" Added to Cart",Toast.LENGTH_LONG).show();
 

@@ -1,10 +1,12 @@
 package com.orion.darmawan.eclinic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.android.volley.Request;
@@ -51,6 +53,12 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setAdapter(cartAdapter);
 
         loadCart();
+    }
+
+    public void btDetailBuyNow_Click(View v){
+        Intent i = new Intent(this, CheckoutActivity.class);
+        startActivity(i);
+        finish();
     }
 
     private void loadCart() {
