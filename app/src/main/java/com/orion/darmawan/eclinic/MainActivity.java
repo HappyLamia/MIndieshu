@@ -51,9 +51,16 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.orion.darmawan.eclinic.Adapter.Product;
 import com.orion.darmawan.eclinic.Adapter.ProductsAdapter;
+import com.orion.darmawan.eclinic.Model.Affiliasi;
 import com.orion.darmawan.eclinic.Model.ModelData;
+import com.orion.darmawan.eclinic.Model.User;
 import com.orion.darmawan.eclinic.Util.ServerApi;
 import com.orion.darmawan.eclinic.Util.SharedPrefManager;
 import com.orion.darmawan.eclinic.Util.VolleySingleton;
@@ -71,6 +78,8 @@ public class MainActivity extends AppCompatActivity
     private TextView result,nama,voucher;
     private Button refresh;
     private FirebaseAuth auth;
+    private FirebaseDatabase getDatabase;
+    private DatabaseReference getRefenence;
     public static final int REQUEST_CODE = 100;
     public static final int PERMISSION_REQUEST = 200;
     ArrayAdapter<String> adapter;
@@ -121,6 +130,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
+        Glide.with(this).load(R.drawable.bg).into((ImageView) header.findViewById(R.id.header_cover_image));
         nama = header.findViewById(R.id.email_member);
         result = header.findViewById(R.id.id_pasien);
 
@@ -136,7 +146,6 @@ public class MainActivity extends AppCompatActivity
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
             String email = user.getEmail();
-            String uid = user.getUid();
             boolean emailVerified = user.isEmailVerified();
             nama.setText(email);
             if (userData.getId()==null){
@@ -302,7 +311,8 @@ public class MainActivity extends AppCompatActivity
     private void userSynch(String val) {
         //first getting the values
         final String token = val;
-
+        auth = FirebaseAuth.getInstance();
+        final FirebaseUser userData = auth.getCurrentUser();
         //if everything is fine
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ServerApi.URL_SYNCH,
                 new Response.Listener<String>() {
@@ -324,7 +334,6 @@ public class MainActivity extends AppCompatActivity
                                         userJson.getString("nama_pasien"),
                                         userJson.getString("jk")
                                 );
-
                                 //storing the user in shared preferences
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
 
@@ -348,6 +357,7 @@ public class MainActivity extends AppCompatActivity
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("token", token);
+                params.put("id_member", userData.getUid());
                 return params;
             }
         };
