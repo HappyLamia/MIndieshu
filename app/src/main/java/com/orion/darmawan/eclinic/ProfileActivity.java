@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.orion.darmawan.eclinic.Adapter.Alamat;
 import com.orion.darmawan.eclinic.Model.ModelData;
 import com.orion.darmawan.eclinic.Util.SharedPrefManager;
 
@@ -53,6 +54,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
+            }
+        });
+        nav_alamat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, AlamatActivity.class));
             }
         });
     }
