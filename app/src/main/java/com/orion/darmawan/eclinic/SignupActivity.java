@@ -152,7 +152,7 @@ public class SignupActivity extends AppCompatActivity {
         getDatabase = FirebaseDatabase.getInstance();
         getRefenence = getDatabase.getReference();
         String created_date = getCurrentDate();
-        User user = new User(nama,jk,tgl_lahir,no_hp,created_date);
+        User user = new User(nama,jk,tgl_lahir,no_hp,created_date,"User","Member");
         getRefenence.child("User").child(id).setValue(user);
     }
 

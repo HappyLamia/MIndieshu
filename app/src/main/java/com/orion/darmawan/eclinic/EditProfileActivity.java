@@ -126,7 +126,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void UpdateUsers(String id,String nama,String jk,String tgl_lahir,String no_hp,String created_date) {
         getDatabase = FirebaseDatabase.getInstance();
         getRefenence = getDatabase.getReference();
-        User user = new User(nama,jk,tgl_lahir,no_hp,created_date);
+        User user = new User(nama,jk,tgl_lahir,no_hp,created_date,"User","Level");
         getRefenence.child("User").child(id).setValue(user);
     }
 

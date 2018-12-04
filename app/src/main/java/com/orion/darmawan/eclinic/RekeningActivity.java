@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,14 +28,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.orion.darmawan.eclinic.Adapter.Bank;
 import com.orion.darmawan.eclinic.Adapter.BanksAdapter;
 import com.orion.darmawan.eclinic.Adapter.Rekening;
+import com.orion.darmawan.eclinic.Model.Atm;
 import com.orion.darmawan.eclinic.Model.ModelData;
 import com.orion.darmawan.eclinic.Util.ServerApi;
 import com.orion.darmawan.eclinic.Util.SharedPrefManager;
@@ -48,6 +53,8 @@ public class RekeningActivity extends Activity {
 
     private FirebaseDatabase getDatabase;
     private DatabaseReference getRefenence;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
     private TextView GetBank, GetName, GetRek;
     //listview object
     ListView listView;
@@ -66,42 +73,31 @@ public class RekeningActivity extends Activity {
         GetName = findViewById(R.id.getName);
         GetRek = findViewById(R.id.getRek);
 
+        auth = FirebaseAuth.getInstance();
         getDatabase = FirebaseDatabase.getInstance();
         getRefenence = getDatabase.getReference();
-        ModelData userData = SharedPrefManager.getInstance(this).getUser();
+        user = auth.getCurrentUser();
 
         /*
          * Mendapatkan referensi dari lokasi Admin dan tutunannya yaitu User ID dari masing-masing
          * akun user dan menambahkan ChildListener untuk menangani kejadian saat data ditambahkan,
          * diubah, dihapus dan dialihkan.
          */
-        getRefenence.child("Rekening").child(userData.getId()).addChildEventListener(new ChildEventListener() {
-            @SuppressLint("SetTextI18n")
+        getRefenence.child("Rekening").child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                //Mengambil daftar item dari database, setiap kali ada turunannya
-                Rekening rekening = dataSnapshot.getValue(Rekening.class);
-                GetBank.setText("Bank : "+rekening.getBank());
-                GetName.setText("Name : "+rekening.getName());
-                GetRek.setText("No. Rekening : "+rekening.getNoRek());
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
+                {
+                    Atm atm = dataSnapshot1.getValue(Atm.class);
+                    GetBank.setText("Bank : "+atm.bank);
+                    GetName.setText("Name : "+atm.name);
+                    GetRek.setText("No. Rekening : "+atm.no_rek);
+                }
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                //......
-            }
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                //......
-            }
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                //.....
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //Digunakan untuk menangani kejadian Error
-                Log.e("MyListData", "Error: ", databaseError.toException());
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(RekeningActivity.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
             }
         });
         btnAdd = (Button) findViewById(R.id.btnAdd);

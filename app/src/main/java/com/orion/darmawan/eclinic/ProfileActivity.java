@@ -16,7 +16,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private TextView nama,email,phone,gender,birthday;
-    private TextView nav_rekening,nav_topup,nav_account;
+    private TextView nav_rekening,nav_topup,nav_account, nav_alamat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
         nav_rekening = (TextView) findViewById(R.id.nav_rekening);
         nav_topup = (TextView) findViewById(R.id.nav_topup);
         nav_account = (TextView) findViewById(R.id.nav_account);
+        nav_alamat = (TextView) findViewById(R.id.nav_alamat);
 
         nav_rekening.setOnClickListener(new View.OnClickListener() {
             @Override
