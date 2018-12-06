@@ -37,12 +37,19 @@ public class AlamatAdapter extends RecyclerView.Adapter<AlamatAdapter.AlamatView
     public void onBindViewHolder(AlamatViewHolder holder, int position) {
         //getting the product of the specified position
         final Alamat almt = alamatList.get(position);
+        String status = almt.def;
         holder.txtAlamat.setText(almt.alamat);
         holder.txtKota.setText(almt.kota);
         holder.txtKodePos.setText(almt.kode_pos);
         holder.txtLabel.setText(almt.label_alamat);
         holder.txtPenerima.setText(almt.penerima);
         holder.txtTelp.setText(almt.no_telp);
+        if (status.equals("TRUE")){
+            holder.dflBtn.setVisibility(View.GONE);
+        }
+        else{
+            holder.dflBtn.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

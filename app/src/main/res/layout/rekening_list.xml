@@ -19,6 +19,7 @@
             android:paddingBottom="30dp" />
 
     </android.support.design.widget.AppBarLayout>
+
     <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
