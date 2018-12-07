@@ -29,4 +29,13 @@
     <string name="todo">TODO</string>
     <string name="payment">Payment</string>
     <string name="product">Product :</string>
+    <string name="produk_terpilih">Produk Terpilih</string>
+    <string name="pilih_jasa_pengiriman">JasaKirim</string>
+    <string name="pengiriman">Pengiriman</string>
+
+    <string-array name="ekspedisi_arrays">
+        <item>Tiki</item>
+        <item>JNE</item>
+        <item>JnT</item>
+    </string-array>
 </resources>
