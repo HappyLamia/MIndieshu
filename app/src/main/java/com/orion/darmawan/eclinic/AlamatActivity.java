@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,12 +18,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.orion.darmawan.eclinic.Adapter.Alamat;
 import com.orion.darmawan.eclinic.Adapter.AlamatAdapter;
-import com.orion.darmawan.eclinic.Model.Atm;
-import com.orion.darmawan.eclinic.Model.ModelData;
-import com.orion.darmawan.eclinic.Util.SharedPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +105,28 @@ public class AlamatActivity extends AppCompatActivity {
                     Alamat almt = dataSnapshot1.getValue(Alamat.class);
                     alamatList.add(almt);
                 }
+                AlamatAdapter adapter = new AlamatAdapter(AlamatActivity.this, alamatList);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(AlamatActivity.this, "Error :"+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void loadChooseAlamat(){
+        auth = FirebaseAuth.getInstance();
+        userData = auth.getCurrentUser();
+        getDatabase = FirebaseDatabase.getInstance();
+        getRefenence = getDatabase.getReference().child("Alamat").child(userData.getUid());
+        Query Qref = getRefenence.orderByChild("def").equalTo("TRUE");
+        Qref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Alamat almt = dataSnapshot.getValue(Alamat.class);
+                alamatList.add(almt);
                 AlamatAdapter adapter = new AlamatAdapter(AlamatActivity.this, alamatList);
                 recyclerView.setAdapter(adapter);
             }

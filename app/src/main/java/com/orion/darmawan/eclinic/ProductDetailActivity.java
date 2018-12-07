@@ -159,7 +159,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("id_member", userData.getId());
+                params.put("id_member", user.getUid());
                 params.put("id_barang", vID_Barang);
                 params.put("qty", "1");
                 params.put("harga", tvProductPrice.getText().toString());

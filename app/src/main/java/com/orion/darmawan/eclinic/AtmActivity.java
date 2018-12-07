@@ -9,8 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,9 +16,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.orion.darmawan.eclinic.Model.Atm;
+import com.orion.darmawan.eclinic.Adapter.Atm;
 import com.orion.darmawan.eclinic.Model.ModelData;
 import com.orion.darmawan.eclinic.Util.ServerApi;
 import com.orion.darmawan.eclinic.Util.SharedPrefManager;
@@ -35,6 +35,8 @@ public class AtmActivity extends AppCompatActivity implements Spinner.OnItemSele
 
     private FirebaseDatabase getDatabase;
     private DatabaseReference getRefenence,noRef;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
     private Button btnAdd;
     private EditText inputName, inputRek;
     private String namaBank;
@@ -77,11 +79,12 @@ public class AtmActivity extends AppCompatActivity implements Spinner.OnItemSele
     private void writeNewRekening(String bank, String name, String no_rek) {
         getDatabase = FirebaseDatabase.getInstance();
         getRefenence = getDatabase.getReference();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         noRef = getDatabase.getReference("Rekening");
         String key = noRef.push().getKey();
-        ModelData userData = SharedPrefManager.getInstance(this).getUser();
         Atm atm = new Atm(bank,name,no_rek);
-        getRefenence.child("Rekening").child(userData.getId()).child(key).setValue(atm);
+        getRefenence.child("Rekening").child(user.getUid()).child(key).setValue(atm);
         startActivity(new Intent(AtmActivity.this, RekeningActivity.class));
         finish();
     }

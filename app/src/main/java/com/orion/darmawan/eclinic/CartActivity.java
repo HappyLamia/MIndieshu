@@ -52,7 +52,7 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(cartAdapter);
 
-        loadCart();
+        loadCart(user.getUid());
     }
 
     public void btDetailBuyNow_Click(View v){
@@ -61,9 +61,9 @@ public class CartActivity extends AppCompatActivity {
         finish();
     }
 
-    private void loadCart() {
-        ModelData userData = SharedPrefManager.getInstance(this).getUser();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,  ServerApi.URL_GET_CART+"/"+userData.getId(),
+    private void loadCart(String val) {
+//        ModelData userData = SharedPrefManager.getInstance(this).getUser();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,  ServerApi.URL_GET_CART+"/"+val,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -1,4 +1,4 @@
-package com.orion.darmawan.eclinic.Model;
+package com.orion.darmawan.eclinic.Adapter;
 
 public class Atm {
     public String bank;
