@@ -62,9 +62,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
             holder.btn_claim.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mCtx instanceof VoucherActivity){
-                        ((VoucherActivity)mCtx).claimVoucher(idvoucher);
-                    }
+
                 }
             });
         }else{

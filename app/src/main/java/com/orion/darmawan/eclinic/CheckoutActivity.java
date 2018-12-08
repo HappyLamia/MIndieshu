@@ -51,6 +51,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private FirebaseUser userData;
     private FirebaseDatabase getDatabase;
     private DatabaseReference getRefenence,noRef;
+    private TextView txtPenerima,txtAlamat,txtKota,txtKodePos;
     TextView tvHargaTotal_Checkout;
     Double vHargaTotalProduk = 0.0;
 
@@ -67,14 +68,16 @@ public class CheckoutActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(checkoutProdukAdapter);
 
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
         FillSpinnEkspedisi();
         LoadAddressUser();
-        LoadCheckoutProduk();
+        LoadCheckoutProduk(user.getUid());
     }
 
-    private void LoadCheckoutProduk(){
-        ModelData userData = SharedPrefManager.getInstance(this).getUser();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,  ServerApi.URL_GET_CART+"/"+userData.getId(),
+    private void LoadCheckoutProduk(String val){
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,  ServerApi.URL_GET_CART+"/"+val,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -91,9 +94,9 @@ public class CheckoutActivity extends AppCompatActivity {
                                 JSONObject checkoutproduk = array.getJSONObject(i);
 
 //                                adding the product to product list
-                                checkoutProdukList.add(new CheckoutProduk("Barang "+i,
-                                        checkoutproduk.getInt("qty"),
-                                        Double.valueOf(checkoutproduk.getDouble("harga"))));
+                                checkoutProdukList.add(new CheckoutProduk(checkoutproduk.getString("nama_barang"),
+                                                                          checkoutproduk.getInt("qty"),
+                                                                          Double.valueOf(checkoutproduk.getDouble("harga"))));
 
                                 vHargaTotalProduk += checkoutproduk.getDouble("harga");
                             }
@@ -119,25 +122,33 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     private void LoadAddressUser(){
+        txtPenerima = (TextView) findViewById(R.id.tvCheckout_NamaPenerima);
+        txtAlamat = (TextView) findViewById(R.id.tvCheckout_AlamatPenerima);
+        txtKota = (TextView) findViewById(R.id.tvCheckout_KotaPenerima);
+        txtKodePos = (TextView) findViewById(R.id.tvCheckout_KodePosPenerima);
         auth = FirebaseAuth.getInstance();
         userData = auth.getCurrentUser();
         getDatabase = FirebaseDatabase.getInstance();
         getRefenence = getDatabase.getReference();
-        getRefenence.child("Alamat").child(userData.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
-                {
-                    Alamat almt = dataSnapshot1.getValue(Alamat.class);
-                }
-            }
+        getRefenence.child("Alamat").child(userData.getUid()).addListenerForSingleValueEvent(
+            new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // Get user value
+                    Alamat almt = dataSnapshot.getValue(Alamat.class);
+                    txtPenerima.setText(almt.penerima);
+                    txtAlamat.setText(almt.alamat);
+                    txtKota.setText(almt.kota);
+                    txtKodePos.setText(almt.kode_pos);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(CheckoutActivity.this, "Error :"+databaseError.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(CheckoutActivity.this, "getUser:onCancelled"+databaseError.toException(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 
     private void FillSpinnEkspedisi(){

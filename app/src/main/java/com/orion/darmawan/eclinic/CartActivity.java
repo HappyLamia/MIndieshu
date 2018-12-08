@@ -76,20 +76,17 @@ public class CartActivity extends AppCompatActivity {
                             //traversing through all the object
                             for (int i = 0; i < array.length(); i++) {
 
-                                //getting product object from json array
                                 JSONObject cart = array.getJSONObject(i);
 
-//                                adding the product to product list
                                 cartList.add(new Cart(
                                         cart.getString("id_barang"),
-                                        "Barang "+i,
+                                        cart.getString("nama_barang"),
                                         cart.getInt("qty"),
                                         0,
                                         cart.getInt("harga")
                                         ));
                             }
 
-                            //creating adapter object and setting it to recyclerview
                             CartAdapter adapt = new CartAdapter(CartActivity.this, cartList);
                             recyclerView.setAdapter(adapt);
                         } catch (JSONException e) {

@@ -104,6 +104,8 @@ public class AlamatActivity extends AppCompatActivity {
                 {
                     Alamat almt = dataSnapshot1.getValue(Alamat.class);
                     alamatList.add(almt);
+                    String key = dataSnapshot1.getKey();
+                    almt.setKeyId(key);
                 }
                 AlamatAdapter adapter = new AlamatAdapter(AlamatActivity.this, alamatList);
                 recyclerView.setAdapter(adapter);
@@ -116,26 +118,25 @@ public class AlamatActivity extends AppCompatActivity {
         });
     }
 
-    public void loadChooseAlamat(){
+    public void defaultBtn(String key){
         auth = FirebaseAuth.getInstance();
         userData = auth.getCurrentUser();
         getDatabase = FirebaseDatabase.getInstance();
-        getRefenence = getDatabase.getReference().child("Alamat").child(userData.getUid());
-        Query Qref = getRefenence.orderByChild("def").equalTo("TRUE");
-        Qref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Alamat almt = dataSnapshot.getValue(Alamat.class);
-                alamatList.add(almt);
-                AlamatAdapter adapter = new AlamatAdapter(AlamatActivity.this, alamatList);
-                recyclerView.setAdapter(adapter);
-            }
+        getRefenence = getDatabase.getReference();
+        Alamat almt = new Alamat("TRUE");
+        getRefenence.child("Alamat").child(userData.getUid()).child(key).setValue(almt);
+        startActivity(new Intent(AlamatActivity.this, AlamatActivity.class));
+        finish();
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(AlamatActivity.this, "Error :"+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    public void removeAddress(String key){
+        auth = FirebaseAuth.getInstance();
+        userData = auth.getCurrentUser();
+        getDatabase = FirebaseDatabase.getInstance();
+        getRefenence = getDatabase.getReference();
+        getRefenence.child("Alamat").child(userData.getUid()).child(key).removeValue();
+        startActivity(new Intent(AlamatActivity.this, AlamatActivity.class));
+        finish();
     }
 
     public void addAlamat(String alamat,String kode_pos,String kota,String label_alamat,String no_telp,String penerima){
