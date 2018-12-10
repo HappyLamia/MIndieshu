@@ -2,6 +2,7 @@ package com.orion.darmawan.eclinic;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,7 +53,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private FirebaseUser userData;
     private FirebaseDatabase getDatabase;
     private DatabaseReference getRefenence,noRef;
-    private TextView txtPenerima,txtAlamat,txtKota,txtKodePos;
+    private TextView txtPenerima,txtAlamat,txtKota,txtKodePos,chBtn;
     TextView tvHargaTotal_Checkout;
     Double vHargaTotalProduk = 0.0;
 
@@ -126,29 +128,52 @@ public class CheckoutActivity extends AppCompatActivity {
         txtAlamat = (TextView) findViewById(R.id.tvCheckout_AlamatPenerima);
         txtKota = (TextView) findViewById(R.id.tvCheckout_KotaPenerima);
         txtKodePos = (TextView) findViewById(R.id.tvCheckout_KodePosPenerima);
+        chBtn = (TextView) findViewById(R.id.chn_address);
         auth = FirebaseAuth.getInstance();
         userData = auth.getCurrentUser();
         getDatabase = FirebaseDatabase.getInstance();
-        getRefenence = getDatabase.getReference();
-        getRefenence.child("Alamat").child(userData.getUid()).child("LT7xe9vNACct9SQWS7w").addListenerForSingleValueEvent(
-            new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // Get user value
-                    Alamat almt = dataSnapshot.getValue(Alamat.class);
-                    txtPenerima.setText(almt.penerima);
-                    txtAlamat.setText(almt.alamat);
-                    txtKota.setText(almt.kota);
-                    txtKodePos.setText(almt.kode_pos);
+        getRefenence = getDatabase.getReference().child("Alamat").child(userData.getUid());
+        getRefenence.orderByChild("def").equalTo("TRUE").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                Alamat almt = dataSnapshot.getValue(Alamat.class);
+                String key = dataSnapshot.getKey();
+                txtPenerima.setText("Penerima : "+almt.penerima);
+                txtAlamat.setText(almt.alamat);
+                txtKota.setText(almt.kota);
+                txtKodePos.setText(almt.kode_pos);
+            }
 
-                }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Toast.makeText(CheckoutActivity.this, "getUser:onCancelled"+databaseError.toException(),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(CheckoutActivity.this, "getUser:onCancelled"+databaseError.toException(),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        chBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CheckoutActivity.this, AlamatActivity.class));
+            }
+        });
+
     }
 
     private void FillSpinnEkspedisi(){
