@@ -130,7 +130,7 @@ public class CheckoutActivity extends AppCompatActivity {
         userData = auth.getCurrentUser();
         getDatabase = FirebaseDatabase.getInstance();
         getRefenence = getDatabase.getReference();
-        getRefenence.child("Alamat").child(userData.getUid()).addListenerForSingleValueEvent(
+        getRefenence.child("Alamat").child(userData.getUid()).child("LT7xe9vNACct9SQWS7w").addListenerForSingleValueEvent(
             new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

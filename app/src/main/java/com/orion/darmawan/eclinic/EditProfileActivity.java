@@ -58,7 +58,6 @@ public class EditProfileActivity extends AppCompatActivity {
             jklaki = (RadioButton) findViewById(R.id.jklaki);
             jkperempuan = (RadioButton) findViewById(R.id.jkperempuan);
 
-
             getDatabase = FirebaseDatabase.getInstance();
             getRefenence = getDatabase.getReference();
             getRefenence.child("User").child(userData.getUid()).addListenerForSingleValueEvent(
