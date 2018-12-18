@@ -102,19 +102,22 @@
                         android:layout_height="wrap_content"
                         android:text="@string/app_name"/>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <ImageView
+                            android:id="@+id/img_cart_plus"
                             android:layout_marginLeft="0dp"
+                            android:layout_toLeftOf="@id/tvCart_QtyBeli"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:src="@drawable/plus_circle_outline"/>
 
                         <TextView
                             android:id="@+id/tvCart_QtyBeli"
+                            android:layout_toLeftOf="@id/img_cart_minus"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_width="wrap_content"
@@ -123,18 +126,27 @@
                             android:text="1"/>
 
                         <ImageView
+                            android:id="@+id/img_cart_minus"
+                            android:layout_alignParentRight="true"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:src="@drawable/minus_circle_outline"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
-                    <ImageView
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_action_cart_item_delete"/>
+                    <RelativeLayout
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="35dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_action_cart_item_delete"/>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
