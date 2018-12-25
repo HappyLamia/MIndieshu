@@ -32,6 +32,8 @@
     <string name="produk_terpilih">Produk Terpilih</string>
     <string name="pilih_jasa_pengiriman">JasaKirim</string>
     <string name="pengiriman">Pengiriman</string>
+    <string name="pilih_metode_pembayaran">Pilih Metode Pembayaran</string>
+    <string name="detail_tagihan">Detail Tagihan</string>
 
     <string-array name="ekspedisi_arrays">
         <item>Tiki</item>

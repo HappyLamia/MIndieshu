@@ -109,25 +109,29 @@
 
                         <ImageView
                             android:id="@+id/img_cart_plus"
-                            android:layout_marginLeft="0dp"
                             android:layout_toLeftOf="@id/tvCart_QtyBeli"
+                            android:layout_toStartOf="@id/tvCart_QtyBeli"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:src="@drawable/plus_circle_outline"/>
 
                         <TextView
                             android:id="@+id/tvCart_QtyBeli"
-                            android:layout_toLeftOf="@id/img_cart_minus"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_width="wrap_content"
+                            android:layout_width="30dp"
+                            android:textAlignment="center"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="1"/>
+                            android:layout_toLeftOf="@id/img_cart_minus"
+                            android:layout_toStartOf="@id/img_cart_minus"
+                            android:text="1"
+                            android:textStyle="bold"
+                            android:textSize="18sp" />
 
                         <ImageView
                             android:id="@+id/img_cart_minus"
                             android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:src="@drawable/minus_circle_outline"/>
@@ -140,7 +144,10 @@
                         android:layout_height="match_parent">
 
                         <ImageView
+                            android:id="@+id/imgCart_Delete"
                             android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_width="35dp"
                             android:layout_height="40dp"
