@@ -46,13 +46,6 @@ public class AlamatAdapter extends RecyclerView.Adapter<AlamatAdapter.AlamatView
         final Alamat almt = alamatList.get(position);
 
         String status = almt.def;
-        final String alamat = almt.alamat;
-        final String kota = almt.kota;
-        final String kodepos = almt.kode_pos;
-        final String label = almt.label_alamat;
-        final String penerima = almt.penerima;
-        final String telp = almt.no_telp;
-
         holder.txtAlamat.setText(almt.alamat);
         holder.txtKota.setText(almt.kota);
         holder.txtKodePos.setText(almt.kode_pos);
@@ -68,8 +61,9 @@ public class AlamatAdapter extends RecyclerView.Adapter<AlamatAdapter.AlamatView
         holder.dflBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Key"+almt.getKeyId(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                if(mCtx instanceof AlamatActivity){
+//                    ((AlamatActivity)mCtx).defaultBtn(almt.getKeyId());
+//                }
             }
         });
         holder.hapusBtn.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +71,17 @@ public class AlamatAdapter extends RecyclerView.Adapter<AlamatAdapter.AlamatView
             public void onClick(View v) {
                 Snackbar.make(v, "Key"+almt.getKeyId(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                if(mCtx instanceof AlamatActivity){
+                    ((AlamatActivity)mCtx).removeAddress(almt.getKeyId());
+                }
+            }
+        });
+        holder.ubahBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mCtx instanceof AlamatActivity){
+                    ((AlamatActivity)mCtx).addForm(almt.getKeyId());
+                }
             }
         });
     }
