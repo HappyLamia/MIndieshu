@@ -257,7 +257,9 @@ public class MainActivity extends AppCompatActivity
             SharedPrefManager.getInstance(getApplicationContext()).userLogout();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
-
+        }
+        else if(id == R.id.nav_member){
+            startActivity(new Intent(MainActivity.this, MemberActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

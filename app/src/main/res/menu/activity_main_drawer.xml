@@ -47,6 +47,10 @@
                 android:icon="@drawable/account_circle"
                 android:title="Profil" />
             <item
+                android:id="@+id/nav_member"
+                android:icon="@drawable/decagram_outline"
+                android:title="Be A Member" />
+            <item
                 android:id="@+id/nav_chat"
                 android:icon="@drawable/chat"
                 android:title="Ask Admin" />
