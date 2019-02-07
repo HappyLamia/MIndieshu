@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import com.orion.darmawan.eclinic.Adapter.Cart;
 import com.orion.darmawan.eclinic.Adapter.CartAdapter;
 import com.orion.darmawan.eclinic.Adapter.CheckoutProduk;
 import com.orion.darmawan.eclinic.Adapter.CheckoutProdukAdapter;
+import com.orion.darmawan.eclinic.Adapter.Kurir;
 import com.orion.darmawan.eclinic.Model.ModelData;
 import com.orion.darmawan.eclinic.Util.ServerApi;
 import com.orion.darmawan.eclinic.Util.SharedPrefManager;
@@ -45,6 +48,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private List<CheckoutProduk> checkoutProdukList = new ArrayList<>();
     private List<Alamat> alamatList = new ArrayList<>();
+    private List<Kurir> kurirList = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private CheckoutProdukAdapter checkoutProdukAdapter;
@@ -55,6 +59,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private DatabaseReference getRefenence,noRef;
     private TextView txtPenerima,txtAlamat,txtKota,txtKodePos,chBtn;
     TextView tvHargaTotal_Checkout;
+    Spinner spinnKurir;
     Double vHargaTotalProduk = 0.0;
 
     @Override
@@ -72,10 +77,10 @@ public class CheckoutActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
-        FillSpinnEkspedisi();
+        
         LoadAddressUser();
         LoadCheckoutProduk(user.getUid());
+        FillSpinnEkspedisi();
     }
 
     private void LoadCheckoutProduk(String val){
@@ -124,11 +129,11 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     private void LoadAddressUser(){
-        txtPenerima = (TextView) findViewById(R.id.tvCheckout_NamaPenerima);
-        txtAlamat = (TextView) findViewById(R.id.tvCheckout_AlamatPenerima);
-        txtKota = (TextView) findViewById(R.id.tvCheckout_KotaPenerima);
-        txtKodePos = (TextView) findViewById(R.id.tvCheckout_KodePosPenerima);
-        chBtn = (TextView) findViewById(R.id.chn_address);
+        txtPenerima = findViewById(R.id.tvCheckout_NamaPenerima);
+        txtAlamat = findViewById(R.id.tvCheckout_AlamatPenerima);
+        txtKota = findViewById(R.id.tvCheckout_KotaPenerima);
+        txtKodePos = findViewById(R.id.tvCheckout_KodePosPenerima);
+        chBtn = findViewById(R.id.chn_address);
         auth = FirebaseAuth.getInstance();
         userData = auth.getCurrentUser();
         getDatabase = FirebaseDatabase.getInstance();
@@ -173,11 +178,34 @@ public class CheckoutActivity extends AppCompatActivity {
                 startActivity(new Intent(CheckoutActivity.this, AlamatActivity.class));
             }
         });
-
     }
 
     private void FillSpinnEkspedisi(){
+        spinnKurir = findViewById(R.id.spCheckout_Ekspedisi);
 
+        auth = FirebaseAuth.getInstance();
+        userData = auth.getCurrentUser();
+        getDatabase = FirebaseDatabase.getInstance();
+        getRefenence = getDatabase.getReference().child("Kurir");
+        getRefenence.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    Kurir kurir = dataSnapshot1.getValue(Kurir.class);
+                    kurirList.add(kurir);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(CheckoutActivity.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ArrayAdapter<Kurir> dataAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, kurirList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnKurir.setAdapter(dataAdapter);
     }
 
     public void btCheckoutPayment_Click(View v){

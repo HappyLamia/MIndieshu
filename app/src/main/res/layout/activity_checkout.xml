@@ -149,8 +149,9 @@
                             android:id="@+id/spCheckout_Ekspedisi"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:entries="@array/ekspedisi_arrays"
                             android:prompt="@string/pilih_jasa_pengiriman">
+                            <!--android:entries="@array/ekspedisi_arrays"-->
+
                         </Spinner>
 
                     </LinearLayout>

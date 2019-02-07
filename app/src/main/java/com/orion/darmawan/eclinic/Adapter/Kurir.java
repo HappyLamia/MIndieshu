@@ -1,8 +1,8 @@
 package com.orion.darmawan.eclinic.Adapter;
 
 public class Kurir {
-    String idKey;
-    String name;
+    public String idKey;
+    public String name;
 
     public Kurir() {
     }
