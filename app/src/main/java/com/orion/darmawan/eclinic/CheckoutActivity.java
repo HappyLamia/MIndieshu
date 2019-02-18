@@ -80,7 +80,7 @@ public class CheckoutActivity extends AppCompatActivity {
         
         LoadAddressUser();
         LoadCheckoutProduk(user.getUid());
-        FillSpinnEkspedisi();
+//        FillSpinnEkspedisi();
     }
 
     private void LoadCheckoutProduk(String val){

@@ -36,9 +36,8 @@
     <string name="detail_tagihan">Detail Tagihan</string>
 
     <string-array name="ekspedisi_arrays">
-        <item>Tiki</item>
-        <item>JNE</item>
         <item>JnT</item>
+        <item>Kurir Pribadi</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
 </resources>
